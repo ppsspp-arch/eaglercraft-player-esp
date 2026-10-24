@@ -1,18 +1,25 @@
-# Eaglercraft Player ESP scaffold
+# Eaglercraft Player ESP — Lua package scaffold
 
-**Status: prototype scaffold — not a working ESP yet.** This repository does not currently detect players or draw highlights.
+**Version 0.2.0 · scaffold only**
 
-## Toggle key
+This project is packaged for the reported Eaglercraft 26.3 Lua mod format (metadata.json + main.lua). Community reports mention this package shape, but an authoritative loader API/schema has not been verified. See INTEGRATION.md.
 
-The intended toggle key is **N**. The JavaScript helper below toggles an enabled flag and displays its state, but it does not hook into Eaglercraft's renderer or player list.
+## Toggle
 
-## Files
+The intended key is **N**. main.lua exposes on_key_pressed("N") and tracks an enabled flag. A host must call this function from its keyboard event handler.
 
-- `main.lua` — Lua scaffold with an N-key toggle function.
-- `metadata.json` — package metadata.
-- `src/player-esp.user.js` — standalone browser userscript scaffold.
-- `INTEGRATION.md` — loader integration notes.
+## Important limitations
 
-## Important compatibility note
+- This is **not a working ESP**: it does not detect players or draw boxes/outlines.
+- No separate mod loader is bundled. The target client/loader is expected to load this mod package.
+- The exact Eaglercraft 26.3 Lua runtime API is unverified, so the code intentionally avoids inventing event/render API names.
+- main.lua is plain Lua and may need a small adapter for the specific loader you use.
 
-Eaglercraft builds and mod loaders expose different APIs. This project does not assume that the game supports Lua natively. Use only with a compatible loader and in environments where you have permission to run mods.
+## Package files
+
+- metadata.json — package metadata and entry point.
+- main.lua — standalone Lua toggle-state scaffold.
+- icon.svg — project icon.
+- INTEGRATION.md — loader compatibility notes.
+
+The browser userscript in src/ is a separate status-only experiment and is **not** part of the Lua ZIP package.
