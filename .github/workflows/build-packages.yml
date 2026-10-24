@@ -1,0 +1,48 @@
+name: Build separate ZIP packages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "main.lua"
+      - "metadata.json"
+      - "icon.svg"
+      - "README.md"
+      - "INTEGRATION.md"
+      - "loader-starter/**"
+      - ".github/workflows/build-packages.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Player ESP ZIP
+        run: |
+          mkdir -p dist/player-esp
+          cp main.lua metadata.json icon.svg README.md INTEGRATION.md dist/player-esp/
+          cd dist/player-esp
+          zip -r ../eaglercraft-player-esp-v0.3.0.zip .
+
+      - name: Build Loader Starter ZIP
+        run: |
+          mkdir -p dist/loader-starter
+          cp loader-starter/README.md loader-starter/NEEDS-VERIFICATION.txt dist/loader-starter/
+          cd dist/loader-starter
+          zip -r ../eaglercraft-26.3-loader-starter-NOT-A-LOADER.zip .
+
+      - name: Upload both ZIP artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: eaglercraft-26.3-two-zip-packages
+          path: |
+            dist/eaglercraft-player-esp-v0.3.0.zip
+            dist/eaglercraft-26.3-loader-starter-NOT-A-LOADER.zip
+          if-no-files-found: error
+          retention-days: 30
