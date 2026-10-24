@@ -1,0 +1,8 @@
+Status: NOT A LOADER
+This archive contains documentation only. It will not load mods.
+
+Required before creating a real loader ZIP:
+- Identify the exact loader used by Eaglercraft 26.3.
+- Verify compatibility with this client version.
+- Check official licensing and redistribution terms.
+- Use the loader's actual installation/package format.
