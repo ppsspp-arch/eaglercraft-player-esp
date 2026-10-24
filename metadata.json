@@ -1,16 +1,16 @@
 {
   "name": "eaglercraft-player-esp",
-  "version": "0.2.0",
-  "description": "Lua-format scaffold for Eaglercraft 26.3; player rendering is not implemented",
+  "version": "0.3.0",
+  "description": "Lua ESP core with adapter-driven player boxes; host API integration required",
   "entry": "main.lua",
   "icon": "icon.svg",
   "toggleKey": "N",
   "target": "https://eaglercraft.com/play?version=26.3",
   "packageFormat": "metadata.json + main.lua",
-  "status": "scaffold-only",
+  "status": "adapter-required",
   "limitations": [
-    "The exact Eaglercraft 26.3 Lua loader API has not been verified.",
-    "No key-event registration, player detection, or ESP rendering is implemented.",
-    "A compatible loader must execute main.lua and connect key events and rendering."
+    "The exact Eaglercraft 26.3 Lua loader/game API has not been verified.",
+    "Player discovery and world-to-screen projection must be provided by a loader adapter.",
+    "The core draws 2D boxes only when supplied screen-space player records and a drawing callback."
   ]
 }
