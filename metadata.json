@@ -1,11 +1,16 @@
 {
   "name": "eaglercraft-player-esp",
-  "version": "0.1.0",
-  "description": "Player ESP toggle scaffold for compatible Eaglercraft mod loaders",
+  "version": "0.2.0",
+  "description": "Lua-format scaffold for Eaglercraft 26.3; player rendering is not implemented",
   "entry": "main.lua",
-  "icon": "icon.png",
+  "icon": "icon.svg",
   "toggleKey": "N",
-  "status": "scaffold-only",
   "target": "https://eaglercraft.com/play?version=26.3",
-  "notes": "Does not yet detect players or render ESP highlights. Requires a compatible loader that forwards key events and provides game integration APIs."
+  "packageFormat": "metadata.json + main.lua",
+  "status": "scaffold-only",
+  "limitations": [
+    "The exact Eaglercraft 26.3 Lua loader API has not been verified.",
+    "No key-event registration, player detection, or ESP rendering is implemented.",
+    "A compatible loader must execute main.lua and connect key events and rendering."
+  ]
 }
