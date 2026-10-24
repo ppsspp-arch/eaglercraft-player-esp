@@ -1,17 +1,29 @@
-# Integration notes
+# Eaglercraft 26.3 Lua integration
 
-## Toggle key
+## Package format
 
-The intended key is **N**. The userscript logs `ON` or `OFF` in the browser console when the key is pressed. `main.lua` exposes `on_key_pressed("N")` for a loader to call.
+The project ZIP uses the reported layout:
 
-## Not a functional ESP yet
+- metadata.json
+- main.lua
+- icon.svg
+- README.md
+- INTEGRATION.md
 
-This scaffold does not locate players, inspect game entities, or draw boxes/outlines. A compatible mod loader must expose documented game/player APIs and connect the `enabled` state to a render hook before visible ESP can work. Eaglercraft does not necessarily run Lua files natively, so placing `main.lua` in a ZIP alone will not execute it.
+Community discussion reports that Eaglercraft 26.3 accepts .lau files and ZIPs containing metadata.json and main.lua, but this has not been verified against official loader documentation. Loader versions may expect different metadata fields or an icon format.
 
-## Test the toggle
+## Toggle contract
 
-1. Open the target game only with a loader/userscript environment that you trust and are allowed to use.
-2. Open the browser developer console.
-3. Press **N** and look for the scaffold's ON/OFF message.
+The Lua entry exposes:
 
-If nothing appears, the userscript may not be installed or permitted to run on the page.
+- PlayerESP.toggle() — flips the enabled flag.
+- PlayerESP.on_key_pressed(key) — toggles when key == "N".
+- PlayerESP.get_status() — returns a status string.
+
+The code uses plain Lua and does not assume a particular global API. The selected loader must execute main.lua and, if it supports the needed integration, call on_key_pressed("N") from its key event.
+
+## What is not implemented
+
+No documented Eaglercraft 26.3 Lua event/render API was available to verify here. Therefore this package does **not** register its own keyboard listener, access player entities, or draw ESP highlights. It is a mod-format scaffold, not a standalone loader and not a functional ESP yet.
+
+To implement real rendering safely, the exact loader name/version and its API documentation are needed. Do not assume Fabric, Forge, EaglerForge, or browser userscript APIs work in this Lua runtime.
