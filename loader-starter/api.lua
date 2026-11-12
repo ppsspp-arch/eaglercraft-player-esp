@@ -3,6 +3,14 @@
 
 -- describes the eaglerceaft lua API
 
+-- things that probably should be part of the api but i could not find:
+-- -- extended world.block results like facing and state
+-- -- world.set( x:number, y:number, z:number, block:string, options:object)
+-- -- faster interoperability (the lua layer is slow)
+-- -- open-source implementation so this description can be easily extended
+-- -- more overall control over entities, blocks, players and lower-level parts of the game
+-- -- a help function, printing the API to the logs
+
 ---@alias itemstack {
 --- 	id : string,
 --- 	count : number,
